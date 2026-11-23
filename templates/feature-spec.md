@@ -8,9 +8,13 @@
 
 <!-- List the behavior in this feature and any related work that belongs in a separate issue. -->
 
+## Confirmed decisions
+
+<!-- Record choices that affect behavior. Link an existing glossary entry or decision record when relevant. -->
+
 ## Acceptance criteria
 
-- [ ] When [condition or action], [observable outcome].
+- [ ] AC-1. When [condition or action], [observable outcome].
 
 ## Open questions
 

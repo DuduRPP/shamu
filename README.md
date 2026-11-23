@@ -6,7 +6,7 @@ Shamu is a starter repository for agent-assisted development with Orca, Codex, a
 
 1. After the starter files are on Shamu's default branch, enable **Template repository** in GitHub settings. Use **Use this template** to create a project. [GitHub template guide](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository)
 2. Update the project's [agent instructions](AGENTS.md) with its conventions and verification commands. Configure CI to run the project's checks.
-3. Open the project in Orca and take one small feature through the [feature workflow](docs/workflow.md).
+3. Open the project in Orca and take one small feature through the [feature workflow](docs/workflow.md). For a rough idea, invoke `$grill-requirements` in Codex from the project root. [Requirements skill](.agents/skills/grill-requirements/SKILL.md)
 
 To adopt Shamu in an existing repository, add the files in a pull request and merge the guidance into the project's existing instructions.
 
