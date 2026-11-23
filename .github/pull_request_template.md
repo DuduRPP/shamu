@@ -8,7 +8,7 @@
 
 ## Verification
 
-<!-- List commands, results, manual checks, and any verification still pending. -->
+<!-- Identify the tested revision. Record exact commands or direct observations, the results tied to key acceptance criteria, and any checks still pending. -->
 
 ## Review notes
 

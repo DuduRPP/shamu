@@ -11,9 +11,13 @@ about: Propose a feature or track approved implementation work.
 
 <!-- Link the feature spec or summarize the scope and observable criteria here. -->
 
+## Verification
+
+<!-- Describe where to observe the behavior covered by the acceptance criteria. -->
+
 ## Dependencies and decisions
 
-<!-- Link dependencies, the approved design and test plan, and the approval records. Note decisions still pending. -->
+<!-- Link the approved spec revision and its approval record. List actual blockers and link the design and test plan or note that approval is pending. -->
 
 ## Handoff
 
