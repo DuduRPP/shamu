@@ -2,26 +2,24 @@
 
 ## Context
 
-<!-- Link the feature issue and the approved requirements revision. -->
+<!-- Identify this plan revision and link the feature issue and settled requirements revision. -->
 
 ## Design
 
-<!-- Describe the affected components, interfaces, or data. Explain the decisions that matter for this change. -->
-
-<!-- For a consequential design choice, record the option chosen, its main downside, and when to revisit it. -->
+<!-- Describe existing behavior, the proposed responsibilities and interfaces, and who owns relevant state. Record a real trade-off if the design requires a consequential choice. Include a diagram when it answers a design question. -->
 
 ## Test scenarios
 
-| Acceptance criterion | Scenario | Verification surface | Expected result |
+| Acceptance criterion | Setup and action | Verification surface | Expected result |
 | --- | --- | --- | --- |
-| AC-1 | [Setup and action] | [Public interface or observable output] | [Observable result] |
+| AC-1 | [What to set up and do] | [Public interface or observable output] | [What should happen] |
 
-<!-- Include boundary cases or regressions relevant to the change. -->
+<!-- Include relevant failure and boundary cases. -->
 
-## Verification
+## Test-first sequence and verification
 
-<!-- List test commands and manual checks. Identify the behavior test expected to fail before implementation and the reason it should fail. -->
+<!-- List small behavior slices in order. Identify the first focused check, the expected failure before implementation, and the passing result. Include the project commands and any direct checks. -->
 
 ## Approval
 
-<!-- Link the human decision and the revision it covers. -->
+<!-- Link the human decision and the specific plan revision it covers. -->

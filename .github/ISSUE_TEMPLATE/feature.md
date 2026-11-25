@@ -9,7 +9,7 @@ about: Propose a feature or track approved implementation work.
 
 ## Scope and acceptance criteria
 
-<!-- Link the feature spec or summarize the scope and observable criteria here. -->
+<!-- Link the feature spec or summarize the scope and observable criteria in the agreed domain language. -->
 
 ## Verification
 
