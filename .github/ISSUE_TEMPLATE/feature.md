@@ -21,4 +21,4 @@ about: Propose a feature or track approved implementation work.
 
 ## Handoff
 
-<!-- Record readiness or the specific pending approval or blocker. Include the active branch or PR when work is in progress and give the next action. -->
+<!-- Start with design and tests pending. Link the proposal when available, then record readiness or the specific remaining blocker. Include the active branch or PR when work is in progress. -->
