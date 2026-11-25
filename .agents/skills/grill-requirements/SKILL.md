@@ -1,6 +1,6 @@
 ---
 name: grill-requirements
-description: Interview the user about a feature, develop the domain model, and turn settled scope into a feature spec or authorized GitHub issues and an Orca design handoff.
+description: Start a new feature from a plain-language build request or run a requirements interview. Develop the domain model and turn settled scope into a spec, issues, and a design handoff as requested.
 ---
 
 # Grill requirements
@@ -17,8 +17,8 @@ description: Interview the user about a feature, develop the domain model, and t
 
 - Use the project's feature spec format or Shamu's `templates/feature-spec.md` from the Git root. Record the goal, scope, confirmed decisions, and observable acceptance criteria with stable IDs. Use the settled domain terms and reference the relevant glossary and ADRs. Keep deferred behavior and open material decisions visible.
 - Use one issue for a small, verifiable feature. For larger work, apply the context and drafting steps in [Pocock's to-tickets guide](references/pocock/to-tickets.md). Draft numbered, independently verifiable slices that deliver a complete outcome through the relevant layers. Keep acceptance criteria traceable to the spec and list only dependencies that gate a slice. Use the guide's expand–contract sequence when a wide refactor needs multiple safe steps.
-- For a draft request, return the draft. For the full workflow, reuse authorization for issue creation and the design session in the named repo. Resolve any material scope, slicing, or dependency decisions together. If authorization is missing, use the same closing recap to confirm scope and authorize both actions. Record actual human confirmation for the settled revision.
-- Use `docs/workflow.md` for publication, readiness, and launch. Verify the published issues and relationships, then start one new Orca session with the issue URLs, spec revision, and relevant local domain documents. The new issues start with design and tests pending. Report the verified issues and session.
+- Follow the scope of the request under the repository instructions. For interview or draft work, return the requested artifact. For a full feature request, resolve any material scope, slicing, or dependency decisions together. Record which user replies settle the requirements revision and proceed once the scope is confirmed.
+- Follow `docs/workflow.md` to reuse or publish issues in the verified project repository, then continue to design. Pass the verified issues, requirements revision, relevant local domain documents, and full-workflow context to the design session. Report the issues and session.
 
 ## Bundled upstream guides
 
