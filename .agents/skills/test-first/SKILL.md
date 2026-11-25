@@ -5,7 +5,7 @@ description: Implement approved features or regression fixes in test-first slice
 
 # Test-first implementation
 
-Read the relevant glossary and ADRs. For Shamu feature work, read the verified issue and current approved design and test plan. Use the readiness check in `docs/workflow.md` and work within scope in the assigned worktree.
+Read the relevant glossary and ADRs. For Shamu feature work, read the verified issue or local spec and the current approved design and test plan. Use the readiness check in `docs/workflow.md` and work within scope on the feature branch.
 
 - Use [Matt Pocock's TDD skill](references/pocock/tdd.md) for public test boundaries and the red–green loop. The approved public test surfaces in Shamu's design plan are the agreed boundaries. Follow the [test examples](references/pocock/tests.md) and consult the [mocking guide](references/pocock/mocking.md) when replacing a collaborator.
 - Keep the behavior under test and deterministic internal code real. Use a stub for a controlled response or error and a fake when the test needs state. Verify a call when the interaction itself is part of the contract, such as sending one notification after a successful action. Reset doubles between tests. Use a real boundary check when the accepted behavior depends on compatibility with the service.
