@@ -10,7 +10,7 @@
 
 ## Confirmed decisions
 
-<!-- Record choices that affect behavior. Link an existing glossary entry or decision record when relevant. -->
+<!-- Record choices that affect behavior in the agreed domain language. Link the relevant glossary or decision record when available. -->
 
 ## Acceptance criteria
 
