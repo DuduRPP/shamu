@@ -45,19 +45,33 @@ Compare the JSON with the agreed content and resolved relationships. [GitHub CLI
 
 ### Hand off to a new Orca session
 
-As soon as the issue is verified, launch a fresh Codex session in the current Orca worktree so it can inspect the same checkout. Use one session for the feature. Give it the verified issue URL or URLs, the settled requirements revision, and any relevant local context. Ask for an architecture proposal and acceptance tests using the [design and test template](../templates/design-and-test.md). The assignment ends with a plan for the user to review.
+After verifying the issue, launch a fresh Codex session in the current Orca worktree. Use one session for the feature. Give it the verified issue URLs, the settled requirements revision, and any local context it needs. Start [`$design-and-test`](../.agents/skills/design-and-test/SKILL.md) in that session so it can inspect the checkout and draft the architecture and test plan immediately.
 
-Load the version-matched launch guide with `orca skills get orca-cli` using the Orca CLI resolved for the session. With `orca` as the executable, set `$designBrief` to a short prompt containing the issue links, revision, and design-only scope, then launch from the issue's project.
+Load the version-matched launch guide with `orca skills get orca-cli` using the Orca CLI resolved for the current session. Set `$verifiedIssueUrls` and `$settledSpecRevision` from the verified issue. Set `$authorizedFollowUp` to any actions explicitly authorized after plan approval, or an empty string. With `orca` as the resolved executable, launch from the issue's project.
 
 ```powershell
+if (-not $verifiedIssueUrls -or -not $settledSpecRevision) {
+    throw 'A verified issue and settled requirements revision are required for design handoff.'
+}
+$designBrief = @(
+    'Use $design-and-test to draft the architecture and test plan for review.'
+    "Verified issues $($verifiedIssueUrls -join ', ')."
+    "Settled requirements revision $settledSpecRevision."
+    'Inspect this checkout, including relevant local context. Present one proposal for review.'
+) -join ' '
+if ($authorizedFollowUp) {
+    $designBrief += " Authorized after plan approval: $authorizedFollowUp"
+}
 orca agent launch --agent codex --worktree current --prompt $designBrief --json
 ```
 
-Report the issue link and the new session handle after the launch receipt confirms prompt delivery. If launch is unavailable or the reply is lost, retain the verified issue link and follow Orca's recovery instructions for that same launch. Resume the handoff from the existing issue. [Orca CLI handoffs](https://github.com/stablyai/orca/blob/main/skill-guides/orca-cli.md#full-handoffs)
+Report the verified issue and new session handle after the launch receipt confirms prompt delivery. If launch is unavailable or the reply is lost, retain the issue link and follow Orca's recovery instructions for the same launch. [Orca CLI handoffs](https://github.com/stablyai/orca/blob/main/skill-guides/orca-cli.md#full-handoffs)
 
-## 2. Agree on the design and tests
+## 2. Review the design and tests
 
-In the design session, use the [design and test plan](../templates/design-and-test.md) to identify the affected parts of the project and map acceptance criteria to test scenarios. Identify where each important behavior is observable, such as a browser interaction, API response, or CLI result. Include the commands or manual checks that will verify the change. Ask for human approval of the plan before implementation. If a change revises approved behavior or test expectations, record approval for the affected revision before proceeding with that part.
+The design session uses the [design and test template](../templates/design-and-test.md) to present one proposal. It identifies responsibilities and state ownership, maps criteria to public tests, and orders the first test-first slices. Include a diagram when it clarifies a design question.
+
+Review the proposal in that session. One response can approve the plan and authorize recording the decision and starting implementation. Reuse any authorization already given. Record the specific approved plan revision in the issue or design document as authorized, then continue once the readiness checks below pass. A request to revise the plan returns only the affected decisions and tests for review.
 
 ### Check readiness before implementation
 
@@ -71,7 +85,7 @@ If a check is pending, surface the specific approval or blocker. When authorized
 
 ## 3. Implement in a worktree
 
-Start an Orca session in an assigned worktree. Give Codex the issue and its approved documents. For behavior covered by automated tests, write the tests first and confirm they fail for the expected reason. Implement the feature, rerun the tests, and run the project's relevant checks.
+Use [`$test-first`](../.agents/skills/test-first/SKILL.md) in the assigned worktree with the issue and approved plan. Implement one observable behavior at a time. Confirm the expected failure, make the smallest change that passes, rerun the relevant checks, and carry the evidence to review.
 
 ## 4. Review and merge
 
