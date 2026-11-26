@@ -6,7 +6,7 @@ Shamu is a starter repository for agent-assisted development with Orca, Codex, a
 
 1. After the starter files are on Shamu's default branch, enable **Template repository** in GitHub settings. Use **Use this template** to create a project. [GitHub template guide](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository)
 2. Record the project's conventions and verification commands in [agent instructions](AGENTS.md). Set up the required checks for the new repo. [CI setup](docs/ci.md)
-3. Open the project in Orca, start Codex at the project root, and ask for a feature.
+3. Open the project in Orca. Start Codex at the project root using the requirements profile, then ask for a feature. [Model routing](AGENTS.md#model-routing)
 
 > Develop Create Task.
 
