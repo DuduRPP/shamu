@@ -16,6 +16,10 @@ if ($stageModel) {
 }
 ```
 
+## Run the requirements interview
+
+Start the interview in Orca's Codex Chat UI. Use the question tool exposed in that session. If the tool is unavailable or its card fails to open, resume from the unanswered decisions in a Codex Chat UI session that exposes it. In Orca, choose `/plan` for the interview if you need the blocking question tool and it is available there. Return to Build before the GitHub and worktree handoff for a full feature. [Orca Chat UI](https://orca.dev/docs/agents/native-chat)
+
 ## Launch design in a worktree
 
 Load `orca skills get orca-cli` with the executable for this host. For commands that carry message bodies on Windows, use the native `orca.exe` if the wrapper directs you to it. Verify the repo and choose a committed base containing the project and its workflow files. Use the project’s integration branch unless the feature has an agreed prerequisite or base. Include relevant requirements and domain decisions in the brief when they only exist in the current conversation or checkout.
