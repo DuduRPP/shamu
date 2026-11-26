@@ -4,7 +4,7 @@ A request to build a feature starts this workflow under the [repository instruct
 
 Inspect the checkout first. Find matching work in the project’s GitHub repository when reachable. Use existing issues, approvals, sessions, branches, and pull requests to resume at the first incomplete stage. If lookup is unavailable, start requirements locally. Verify the GitHub repository from the configured remotes before publishing.
 
-Draft-only and design-only requests stop at the requested artifact. For local work, keep the artifacts, approvals, and status in the feature worktree. Use the same interactive gate for implementation.
+Follow [feature progress](progress.md) from issue creation through merge. For local work, keep the artifacts, approvals, and status in the feature worktree and use the same interactive gate for implementation. Draft-only and design-only requests stop at the requested artifact.
 
 ## 1. Settle requirements and dispatch design
 
@@ -45,13 +45,13 @@ if ($LASTEXITCODE -ne 0) {
 
 ### Start the feature worktree
 
-Use the [Orca launch steps](orca.md#launch-design-in-a-worktree) to give a fresh designer its own worktree, the settled requirements, and relevant domain decisions. Record the worktree, branch, session, and expected areas of change in the issue’s Handoff section. Report verified delivery and return to the user.
+Use the [Orca launch steps](orca.md#launch-design-in-a-worktree) to give a fresh designer its own worktree, the settled requirements, and relevant domain decisions. Record the worktree, branch, session, and expected areas of change in the issue’s Handoff section. Record the handoff milestone. The feature session owns progress updates after handoff. Report verified delivery and return to the user.
 
 Use one worktree per feature. Independent features can run in parallel. Track true dependencies in the issues. Before dispatch, the main coordinator checks active issues and PRs and records the feature’s write scope in its Handoff. Cover shared files, interfaces, schemas, and architecture docs. Only the main coordinator grants ownership of shared edits. A designer can propose an expanded scope, then keeps it in the feature proposal until ownership is confirmed. Only the assigned owner edits shared files, including domain and architecture documents. Sequence overlapping writes or assign the shared change to a single prerequisite owner. A blocked feature can plan from the agreed interfaces. Refresh its base and recheck the design after the prerequisite lands.
 
 ## 2. Approve both design documents
 
-Use [`$design-and-test`](../.agents/skills/design-and-test/SKILL.md) in the feature session to prepare the [architecture](../templates/architecture.md) and the [test specification](../templates/test-spec.md). Include the relevant shared architecture changes and project checks. Make both versions readable from Orca mobile, then call the [interactive approval gate](orca.md#request-interactive-approval).
+Use [`$design-and-test`](../.agents/skills/design-and-test/SKILL.md) in the feature session to prepare the [architecture](../templates/architecture.md) and the [test specification](../templates/test-spec.md). Include the relevant shared architecture changes and project checks. Make both versions readable from Orca mobile and record the pending decision in the issue progress before calling the [interactive approval gate](orca.md#request-interactive-approval).
 
 One selection can approve both named revisions. Record the human’s actual answer, question or session reference, and the requirements and document revisions it covers. Revisions requested by the user must receive a new interactive review. Reuse earlier approvals if they still cover the exact requirements, architecture, and test specification, including an older combined plan that covers both documents.
 
@@ -67,7 +67,7 @@ Keep the slice paused while a check is pending. Record the reason and what must 
 
 ## 3. Delegate test-first implementation
 
-The feature session assigns the first ready slice to a separate implementation worker in the feature worktree. Pass the approval record, exact documents, dependencies, assigned paths, and commands to verify. The worker verifies readiness and uses [`$test-first`](../.agents/skills/test-first/SKILL.md). It should implement the smallest behavior at a time, commit its changes, and return failing-before and passing-after evidence. Recheck readiness for the next slice after its prerequisites land. Use the existing approvals when their scope still covers the slice.
+The feature session dispatches each ready slice to the implementation worker as its own task in the feature worktree. Pass the approval record, exact documents, dependencies, assigned paths, and commands to verify. The worker verifies readiness and uses [`$test-first`](../.agents/skills/test-first/SKILL.md). It should implement the smallest behavior at a time, commit its changes, and return failing-before and passing-after evidence. Record each verified milestone with its commit, evidence, and next step. Recheck readiness for the next slice after its prerequisites land. Use the existing approvals when their scope still covers the slice.
 
 Use the [CI guide](ci.md) to reuse or set up relevant checks. For UI work, verify behavior in Orca’s browser or the coding agent’s browser in addition to automated tests. Record the scenarios and observations from the running app.
 
@@ -81,4 +81,4 @@ Mark a PR ready and merge only after independent review and required checks pass
 
 ## Resume work
 
-“Continue issue #12” resumes from its Handoff section. Use the recorded requirements, approvals, dependency status, worktree and session, PR and reviewed commit to find the next action. The feature session owns continuation after a worker reports. Inspect existing receipts when an action’s outcome is uncertain.
+“Continue issue #12” resumes from its Handoff and latest progress update. Check the requirements, approvals, dependencies, worktree and session, PR, and checked commit to find the next action. The feature session owns continuation after a worker reports. Inspect existing receipts when an action’s outcome is uncertain.

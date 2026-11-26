@@ -10,7 +10,7 @@ Shamu is a starter repository for agent-assisted development with Orca, Codex, a
 
 > Develop Create Task.
 
-Shamu interviews you, opens the issues, and starts a design session in a dedicated Orca worktree. Keep planning in the original session. Approve the architecture and test specification together in the feature’s interactive Orca question to start implementation. Once the tests, CI, and independent review pass, review the PR before deciding whether to merge. [Feature workflow](docs/workflow.md)
+Shamu interviews you, opens the issues, and starts a design session in a dedicated Orca worktree. Keep planning in the original session. Approve the architecture and test specification together in the feature’s interactive Orca question to start implementation. Shamu commits verified slices and updates the issues and linked Project as work progresses. Once the tests, CI, and independent review pass, review the PR before deciding whether to merge. [Feature workflow](docs/workflow.md) · [Feature progress](docs/progress.md)
 
 To adopt Shamu in an existing repository, add the files in a pull request and merge the guidance into the project's existing instructions.
 

@@ -13,7 +13,7 @@ Read the relevant glossary and ADRs. For Shamu feature work, check the recorded 
 - Use [Pstack's regression workflow](references/pstack/regression-tdd.md) for bug fixes. If a regression test is impractical and the plan permits an executable check, use the closest one and report its before-and-after evidence. Surface a material coverage change when the approved plan calls for a different check.
 - Run the focused check before changing the behavior and confirm the expected failure. Diagnose broken setup separately. For behavior that already works, keep the passing check and move to the next missing behavior. Run the relevant project checks and direct verification in the plan after the changes.
 - Reuse existing patterns and the [codebase design guidance](../codebase-design/SKILL.md). Keep the implementation simple and reserve comments for non-obvious reasoning. For UI work, run the planned exploratory scenarios in the Orca browser or the coding agent's browser and record what you observed. Use the [CI guide](../../../docs/ci.md) for the project’s checks.
-- Record the criterion, failing check and reason, passing result, and any check that is pending. Use this evidence in the issue or pull request when authorized. Surface a specific choice if approved behavior or the test boundary needs a material change.
+- Follow the [commit convention](../../../docs/progress.md#commit-as-work-progresses) after each verified slice or review fix. Return the commit SHA and criteria covered, the failing-before and passing-after results, and any pending checks to the feature coordinator. Surface a specific choice if approved behavior or the test boundary needs a material change.
 
 ## Bundled upstream references
 

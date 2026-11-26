@@ -21,4 +21,4 @@ about: Propose a feature or track approved implementation work.
 
 ## Handoff
 
-<!-- Record branch, Orca session, expected shared edits, current stage, and specific blockers. Link the PR and reviewed revision when available. -->
+<!-- Record the worktree, branch, Orca session, and shared edit ownership. Link the current progress update and the PR when available. -->
