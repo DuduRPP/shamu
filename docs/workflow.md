@@ -6,6 +6,12 @@ Inspect the checkout first. Find matching work in the project’s GitHub reposit
 
 Follow [feature progress](progress.md) from issue creation through merge. For local work, keep the artifacts, approvals, and status in the feature worktree and use the same interactive gate for implementation. Draft-only and design-only requests stop at the requested artifact.
 
+## When to ask the user
+
+Use the workflow's interactive checkpoints, including requirements confirmation and approval of the architecture and test specification. Pause for any decision the user explicitly reserved, a material change to settled requirements or approved design, or a blocker only the user can resolve after safe recovery attempts. Otherwise choose a reversible option within scope, record consequential choices in the appropriate progress update, and keep going. A required host permission uses the host's permission mechanism.
+
+Use the [Orca question tool](orca.md#ask-for-human-input) when human input is needed. A worker that cannot open a card sends the decision and options to the user-facing coordinator. Continue independent work while the affected step is paused.
+
 ## 1. Settle requirements and dispatch design
 
 Use [`$grill-requirements`](../.agents/skills/grill-requirements/SKILL.md) and the [feature spec](../templates/feature-spec.md). Inspect existing behavior, then ask every remaining question whose answer affects what must be built or verified. Confirm material decisions and ticket boundaries together. Record the settled revision and actual user decisions.
@@ -62,6 +68,8 @@ Check readiness for each slice, using the issue and linked records or the local 
 - The current requirements have recorded human confirmation.
 - The architecture and test specification have recorded interactive approval for their current versions.
 - Every dependency needed by the slice is resolved and present in the base. Shared edits have a confirmed owner.
+
+Resolve routine readiness problems before escalating. If Git reports that an untracked file would be overwritten, inspect the file and the verified prerequisite commit. Integrate and verify the prerequisite in a clean, isolated worktree or replaceable checkout while keeping the original working files intact. If the file contains work the feature needs, preserve and account for that work before switching the active checkout. Continue after rechecking the approved documents against the new base. Request input only if safe recovery is unavailable or the choice materially affects the approved scope.
 
 Keep the slice paused while a check is pending. Record the reason and what must happen next. When a decision or changed base affects the approved behavior or design, return the affected documents for review.
 

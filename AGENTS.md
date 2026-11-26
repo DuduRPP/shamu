@@ -10,6 +10,7 @@
 ## Working agreements
 
 - Preserve existing changes. Keep each worktree within its assigned scope and check active work for shared dependencies or conflicting edits before implementation.
+- Make routine, reversible decisions within the settled scope and continue to the next workflow checkpoint. Use the [human input rules](docs/workflow.md#when-to-ask-the-user) for decisions reserved for the user and blockers that require their action.
 - Commit verified slices as work progresses. Use [Conventional Commits and feature progress](docs/progress.md) to keep the branch, issues, and linked Project current.
 - Prefer small interfaces, clear ownership, and existing patterns. Add abstractions for a concrete need. Use comments for non-obvious reasoning or constraints.
 - Apply the [writing skill](.agents/skills/unslop/SKILL.md) before sharing specs, architecture, tests, issues, PRs, or other documentation. Preserve confirmed decisions, exact requirements, and reviewer evidence.
