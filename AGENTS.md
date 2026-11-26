@@ -26,7 +26,7 @@ Use these defaults for feature work. Apply any model choices the project or user
 | Other implementation | codex | `gpt-6.2-sol` | medium |
 | Independent review | codex | `gpt-6.2-sol` | medium |
 
-Use the frontend profile for slices confined to UI behavior, styling, and their tests. Use the other implementation profile when a slice changes an API contract, shared domain behavior, storage, or backend code. For a frontend slice with complex interaction or async state, use `gemini-4-hydrogen-medium`. For design involving consequential shared contracts, a migration, or concurrency, use Codex `gpt-6.2-astra` at high effort when available.
+Use the frontend profile for slices confined to UI behavior, styling, and their tests. Use the other implementation profile when a slice changes an API contract, shared domain behavior, storage, or backend code. For a frontend slice with complex interaction or async state, use `gemini-4-hydrogen-medium`. For design involving consequential shared contracts, a migration, or concurrency, raise Codex `gpt-6.2-sol` to `max` effort when supported. A project can choose Antigravity `gemini-4-neon-high` for this escalation when its Orca chat supports the [interactive approval](docs/orca.md#request-interactive-approval).
 
 Start the main session with the requirements profile. Use the [Orca launch arguments](docs/orca.md#select-an-agent-for-the-stage) for each handoff. Pass the worker the approved revisions, relevant paths, and verification commands. Give reviewers the exact diff and check results. Run routine checks directly.
 
