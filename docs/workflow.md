@@ -79,13 +79,24 @@ The feature session dispatches each ready slice to the implementation worker as 
 
 Use the [CI guide](ci.md) to reuse or set up relevant checks. For UI work, verify behavior in Orca’s browser or the coding agent’s browser in addition to automated tests. Record the scenarios and observations from the running app.
 
-## 4. Review and merge
+## 4. Review and hand off
 
 In the full GitHub workflow, open or update the draft PR from the implementation commit so CI runs in the verified repository. Link the issues, both approved documents, and verification results in the [PR template](../.github/pull_request_template.md).
 
 The feature session delegates independent review to a fresh [review worker](../.agents/skills/review-feature/SKILL.md) with the exact base and head, approved documents, and evidence. Send blocking findings to the implementation worker. Run the affected checks again and review the new head. Repeat until the current commit has no blocking findings.
 
-Mark a PR ready and merge only after independent review and required checks pass for the proposed commit. The maintainer decides when to merge. For local work, use the same pinned review and fix loop. Record the reviewed commit and local verification in the worktree. Complete the local feature after its checks and review pass.
+### Hand off for maintainer review
+
+The feature coordinator finishes the GitHub handoff before reporting completion.
+
+1. Re-read the PR and verify that required checks passed and independent review cleared all blocking findings for its current head. If the head changes, verify the new head before continuing.
+2. Update the PR with the delivered behavior, linked issues and approvals, verification, and independent review results. Distinguish verified results from missing evidence. For UI changes, capture one or two screenshots of the running feature on the reviewed revision, using sample data. Pick states that help the maintainer evaluate the change and caption each with what it shows. Attach them to the existing PR with GitHub's attachment support. A recent GitHub CLI supports `gh pr edit --attach`. If attachments are unavailable, link existing repository-scoped evidence when available and report any missing screenshots.
+3. Mark the PR ready for review using the GitHub connector or `gh pr ready` and verify the transition. Update the linked issues and their progress with the PR link, the criteria verified, the tested commit, and the next action for the maintainer. Leave issues open until the merge delivers their scope. Sync the linked Project to its review status when accessible. Record a pending Project sync in issue progress if access is unavailable and proceed with the handoff.
+4. Return the ready PR link and any actual limitations. Leave review and merge to the maintainer. When a merge is later verified, record it in issue progress and sync completed work.
+
+For local work, use the same pinned review and fix loop. Record the reviewed commit and local verification in the worktree. Complete the local feature after its checks and review pass.
+
+[GitHub PR attachments](https://cli.github.com/manual/gh_pr_edit) · [Mark a PR ready](https://cli.github.com/manual/gh_pr_ready)
 
 ## Resume work
 

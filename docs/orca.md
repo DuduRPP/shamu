@@ -59,6 +59,8 @@ The feature designer starts supervised workers from its own Orca chat after appr
 3. Once the proposed scope is ready for review, rebuild `$stageArgs` for the review stage. Start a fresh reviewer with the pinned diff, read-only scope, and links to the requirements and both approved documents.
 4. Return blocking findings through `orchestration send --to dispatch:<dispatch_id>`. Orca continues a settled worker as a follow-up task on supported hosts. Verify and publish each fix using the same receipt process. Run the affected checks and request a fresh review of the new head. Record the findings, fix commits, reviewed head, and verification in the PR and issue progress, or in the local worktree. Follow the CLI’s recovery guidance for unknown starts and incomplete workers. If the shell reports `runtime_access_denied`, use the runner’s permission request for that specific Orca command.
 
+After review clears the current head and required checks pass, the feature coordinator completes the [GitHub handoff](workflow.md#hand-off-for-maintainer-review) before ending the run.
+
 For a new implementation or review task, write the brief to `$workerBriefPath` and set `$taskTitle`. When a task already exists, pass its ID with `--task` in place of `--spec-file` and `--task-title`.
 
 ```powershell

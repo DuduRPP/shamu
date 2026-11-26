@@ -21,6 +21,7 @@ The main coordinator records the issue and dispatch. The feature coordinator the
 | Design awaiting approval or revised | Exact architecture and test specification links and the pending decision. Record the user’s approval with the revisions it covers. |
 | Implementation started or a slice verified | Current slice or covered criteria, verified commit link, check results, and next step. When blocked, identify the dependency or decision needed. |
 | Draft PR opened or review advances | PR link, head commit, CI and independent review state, and blocking findings or fixes. |
+| PR ready for maintainer review | Ready PR link, verified criteria and head, CI and independent review results, and any pending Project sync. |
 | Merge verified | Merge reference, delivered scope, and any remaining work. Mark only completed issues done. |
 
 Keep the approval and shared ownership records intact when updating progress. Read the current issue and its progress before resuming. Reuse its existing branch, PR, and progress comment. If the existing comment belongs to a different account, add a successor update and link it in Handoff. If an update fails or returns no receipt, read it back before retrying. If GitHub is unavailable, keep the evidence in the feature worktree and sync the latest state when access returns. For local-only work, keep the same milestones with the local spec or plan.
