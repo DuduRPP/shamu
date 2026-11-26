@@ -1,26 +1,24 @@
 ---
 name: design-and-test
-description: Turn a settled feature issue into a small architecture proposal and test plan for review before implementation.
+description: Design a settled feature in its Orca worktree. Write separate architecture and test specifications, request interactive approval, then coordinate delivery for a full feature.
 ---
 
 # Design and test
 
-## Inspect the issue and checkout
+## Inspect the issue and worktree
 
-- Read the verified issues or local spec, the settled requirements revision, and relevant glossary and architecture decisions, including any documents named in the handoff. Use the confirmed terms in the plan and its test scenarios. Confirm which acceptance criteria apply. Use the recorded decisions to resolve older drafts. Surface a conflict when the available evidence leaves behavior unsettled.
-- Inspect the actual checkout, including relevant local files, public interfaces, existing tests, and available checks. Reuse the project's working patterns. Present the proposal from what you can verify. Include planned setup and checks in the proposal if they need installation or extra access.
+- Read the settled requirements, existing architecture and test files, relevant glossary and decision records, and the feature’s dependencies and assigned scope. Apply confirmed domain updates within the assigned write scope. Use the project’s existing design and verification practices.
+- Compare the expected write areas with active work. Send newly discovered shared edits to the main coordinator. Keep those changes in feature-local draft documents while the coordinator records ownership or sequencing. Apply a shared edit only after the coordinator assigns it to this feature.
 
-## Draft one reviewable plan
+## Write the two documents
 
-Use `templates/design-and-test.md` in Shamu or the project's equivalent. Give the proposal a specific revision. For a multi-ticket feature, identify which criteria and tests apply to each issue.
+1. Use the [architecture template](../../../templates/architecture.md) or the project’s equivalent. Apply [Pocock's codebase design](../codebase-design/SKILL.md) to choose small interfaces, clear ownership, and modules that are easy to maintain, extend, and test. Record the important trade-offs, dependencies, compatibility, and failure flows. Document feature-specific design and application-wide effects in their own sections. Specify updates to existing shared architecture documents when contracts or system boundaries change. Apply them in the worktree with ownership of the shared documents. Select and verify [diagrams](references/diagrams.md) that answer real review questions.
+2. Use the [test specification template](../../../templates/test-spec.md) or the project’s equivalent. Map every criterion to public behavior with explicit setup, action, and expected outcome. Include relevant boundaries, error and recovery cases, and the state that must stay intact. Prefer fast unit and integration tests. Reserve automated end-to-end tests for critical journeys that need a real system boundary. For a UI, include exploratory browser flows and visual checks.
+3. Record the order of test-first slices, their expected first failures, and the project’s verification commands. Inspect existing CI and propose any required additions using the [CI guide](../../../docs/ci.md). Include setup and access requirements in the plan.
+4. Apply [PStack’s writing skill](../unslop/SKILL.md). Give both documents a specific revision tied to the requirements. In the full GitHub workflow, link both from the issue with versioned links that can be opened remotely. Include the proposed changes to shared architecture in the review.
 
-1. Describe current behavior and the proposed change. Name who owns each relevant piece of state or data, the interfaces callers use, and the responsibilities that change. Choose the smallest design that covers the criteria. Compare viable alternatives and record a trade-off when the choice is consequential.
-2. Give each acceptance criterion a testable scenario with a setup, action, public verification surface, and expected result. Reuse existing public interfaces. Choose a unit check for a distinct rule, a component or integration test for behavior across boundaries, or a real browser, CLI, or API check when the behavior depends on that surface. Identify failures and edge cases that matter to the agreed scope.
-3. Order tests as small behavior slices. Name the first focused check, why it should fail before implementation, and what will show it passes afterward. List the relevant commands and any test setup the proposal needs.
-4. When a drawing would resolve a design question, use [diagram guidance](references/diagrams.md). Keep prose and the test matrix sufficient to understand the plan.
+## Request approval and coordinate delivery
 
-## Review and continue
+Call the [interactive approval gate](../../../docs/orca.md#request-interactive-approval) in this feature chat. A revision request leaves implementation paused. Update the affected documents and request approval of the new pair.
 
-Present the architecture and tests together for one human review. Revise the affected decisions and tests if requested. For a full feature request, approval of the plan starts the next stage. Record the approved revision in the plan or issues, check readiness per slice, and take the first ready slice through `$test-first` and draft PR review using `docs/workflow.md`. For a standalone design request, deliver the proposal for review.
-
-Based on [Pocock's codebase design](https://github.com/mattpocock/skills/blob/main/skills/engineering/codebase-design/SKILL.md) and [Pstack's architecture guidance](https://github.com/cursor/plugins/blob/main/pstack/skills/architect/SKILL.md).
+For a full feature request, record explicit approval of both current documents, then check [readiness](../../../docs/workflow.md#check-readiness-before-implementation). Delegate implementation to a separate worker. Coordinate its checks and independent review using the [Orca instructions](../../../docs/orca.md#coordinate-implementation-and-review). For a standalone design request, deliver the two artifacts for review within the requested scope.

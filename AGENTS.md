@@ -2,17 +2,19 @@
 
 ## Feature requests
 
-- When asked to build, add, or implement a product feature, follow the [feature workflow](docs/workflow.md). Inspect the checkout and resume matching work from its current stage. For a new feature, start with the [requirements skill](.agents/skills/grill-requirements/SKILL.md). This applies to plain-language requests such as “Develop Create Task.”
-- A full feature request covers creating or updating the feature's issues, starting its Orca design session, and pushing the feature branch and opening a draft PR in this checkout's verified GitHub repository. Start implementation when the specific design and test plan is approved and the work is ready. The human maintainer decides when to merge.
+- When asked to build, add, or implement a product feature, use the [feature workflow](docs/workflow.md). Resume matching work or start the [requirements interview](.agents/skills/grill-requirements/SKILL.md) from a request such as “Develop Create Task.”
+- In the main conversation, coordinate the feature, publish its issues, and dispatch the design session in a dedicated Orca worktree. Return after Orca confirms delivery so the user can plan more work. Delegate product code changes to an implementation agent. A delegated session follows the role in its brief.
+- A full feature request covers its issues, feature worktree, worker sessions, and draft PR in the verified project repository. Implementation requires interactive approval of both the architecture and test specification. The human maintainer decides when to merge.
 - Honor narrower requests such as a draft, design only, or local work.
 
 ## Working agreements
-- Work in the assigned branch or worktree. Preserve existing changes and keep the diff within the task's scope.
-- Before feature implementation, complete the [issue readiness check](docs/workflow.md#check-readiness-before-implementation). Surface any pending approval or unresolved blocker before starting the affected work.
-- Link the issue, relevant decisions, and verification results in the pull request. The human maintainer makes the merge decision.
+
+- Preserve existing changes. Keep each worktree within its assigned scope and check active work for shared dependencies or conflicting edits before implementation.
+- Prefer small interfaces, clear ownership, and existing patterns. Add abstractions for a concrete need. Use comments for non-obvious reasoning or constraints.
+- Apply the [writing skill](.agents/skills/unslop/SKILL.md) before sharing specs, architecture, tests, issues, PRs, or other documentation. Preserve confirmed decisions, exact requirements, and reviewer evidence.
 
 ## Verification
 
-Run the relevant project checks and report the commands, results, and any checks still pending. For documentation changes, check edited links and run `git diff --check`.
+Run the project’s relevant checks. Use the [CI guide](docs/ci.md) to add missing checks to the existing pipeline or establish one. Require successful checks and independent review of the proposed commit before marking a PR ready.
 
-When adopting this template, record the project's install, lint, test, and build commands here.
+When adopting this template, record the project's install and verification commands here.
