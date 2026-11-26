@@ -1,25 +1,26 @@
-# Feature spec
+# Feature specification
 
-## Goal
+## Goal and current behavior
 
-<!-- Describe who needs the change and what they should be able to do. -->
+<!-- Identify the user, the outcome, and the behavior in the current application. -->
 
-## Scope
+## Scope and dependencies
 
-<!-- List the behavior in this feature and any related work that belongs in a separate issue. -->
+<!-- Include work in scope and deferred. Identify affected workflows, existing components, shared contracts, and external dependencies that matter. -->
 
-## Confirmed decisions
+## Confirmed behavior and limits
 
-<!-- Record choices that affect behavior in the agreed domain language. Link the relevant glossary or decision record when available. -->
+<!-- Describe the main flow, rules, state and permissions. Capture relevant limits, edge cases, errors, recovery, and app-wide effects. Link glossaries and decision records where useful. -->
 
 ## Acceptance criteria
 
-- [ ] AC-1. When [condition or action], [observable outcome].
+- [ ] AC-1. Given [initial state], when [action], [observable result].
+- [ ] AC-2. Given [boundary or failure], when [action], [observable outcome and preserved state].
 
-## Open questions
+## Open decisions
 
-<!-- Record assumptions or decisions that affect the scope. -->
+<!-- List unresolved choices that can change implementation or acceptance. -->
 
-## Approval
+## Requirements revision and confirmation
 
-<!-- Link the human decision and the revision it covers. -->
+<!-- Record the revision and link the human decisions that settle it. -->

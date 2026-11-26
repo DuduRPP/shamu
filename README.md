@@ -5,12 +5,12 @@ Shamu is a starter repository for agent-assisted development with Orca, Codex, a
 ## Start a project
 
 1. After the starter files are on Shamu's default branch, enable **Template repository** in GitHub settings. Use **Use this template** to create a project. [GitHub template guide](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository)
-2. Update the project's [agent instructions](AGENTS.md) with its conventions and verification commands. Configure CI to run the project's checks.
+2. Record the project's conventions and verification commands in [agent instructions](AGENTS.md). Set up the required checks for the new repo. [CI setup](docs/ci.md)
 3. Open the project in Orca, start Codex at the project root, and ask for a feature.
 
 > Develop Create Task.
 
-Shamu guides you through the requirements, opens the issues, and hands off to a design session. Approve the design and test plan there to start test-first implementation. Review the draft PR before deciding whether to merge. [Feature workflow](docs/workflow.md)
+Shamu interviews you, opens the issues, and starts a design session in a dedicated Orca worktree. Keep planning in the original session. Approve the architecture and test specification together in the feature’s interactive Orca question to start implementation. Shamu commits verified slices and updates the issues and linked Project as work progresses. Once the tests, CI, and independent review pass, review the PR before deciding whether to merge. [Feature workflow](docs/workflow.md) · [Feature progress](docs/progress.md)
 
 To adopt Shamu in an existing repository, add the files in a pull request and merge the guidance into the project's existing instructions.
 
@@ -23,7 +23,10 @@ To adopt Shamu in an existing repository, add the files in a pull request and me
 | [Design and test skill](.agents/skills/design-and-test/SKILL.md) | Architecture and test proposal generated in the design session |
 | [Test-first skill](.agents/skills/test-first/SKILL.md) | Implementation and verification after plan approval |
 | [Feature spec](templates/feature-spec.md) | Scope and observable acceptance criteria |
-| [Design and test plan](templates/design-and-test.md) | Proposed changes and verification scenarios |
+| [Architecture template](templates/architecture.md) and [test specification](templates/test-spec.md) | The pair of documents reviewed before implementation |
+| [Orca coordination](docs/orca.md) | Background worktree launch, interactive approval, and independent review |
+| [CI setup](docs/ci.md) | Starter check, project checks, and required GitHub status |
+| [Review skill](.agents/skills/review-feature/SKILL.md) | Independent review of a specific diff |
 | [GitHub issue template](.github/ISSUE_TEMPLATE/feature.md) | The task, dependencies, and links to decisions |
 | [GitHub pull request template](.github/pull_request_template.md) | The change, verification results, and review notes |
 

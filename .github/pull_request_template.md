@@ -4,12 +4,12 @@
 
 ## Issue and decisions
 
-<!-- Link the issue and the relevant approved requirements, design, or test plan. -->
+<!-- Link the issue, settled requirements, approved architecture and test specification, and interactive approval. -->
 
 ## Verification
 
-<!-- Identify the tested revision. Record exact commands or direct observations, the results tied to key acceptance criteria, and any checks still pending. -->
+<!-- Identify the tested revision and the verified slices it includes. Record exact commands or direct observations, results tied to key acceptance criteria, and pending checks. -->
 
 ## Review notes
 
-<!-- Record review findings, follow-up work, or areas that need attention. -->
+<!-- Record the independent reviewer, reviewed commit, and any blocking findings or pending checks. -->

@@ -6,11 +6,13 @@ Start with the question the reviewer needs answered. A short description or test
 | --- | --- |
 | Who uses the system and what else does it connect to? | Context view |
 | What owns state or data, and how are responsibilities divided? | Container or component view |
+| Which domain types relate and what are their responsibilities? | Class diagram |
+| Where is data received, transformed, stored, or shared? | Data flow diagram |
 | Which participants act in which order, including retries or errors? | Sequence diagram |
 | Which events move a workflow between modes? | State diagram |
 | How do persistent records relate? | Entity relationship diagram |
 
-Use the project's format. For a Markdown-first repo, use a small Mermaid block with simple syntax. Label the scope and whether the view is current or proposed. Name boundaries, arrows, and transitions so they can be checked against the code and acceptance criteria. Show only the participants and paths that answer the question, and check the rendering where it will be reviewed.
+Use the project's format. For a Markdown-first repo, use a small Mermaid block with simple syntax. Label the scope and whether the view is current or proposed. Link to an existing system view and update it when a proposed change affects it. Name boundaries, arrows, and transitions so they can be checked against the code and acceptance criteria. Show only the participants and paths that answer the question, and check the rendering where it will be reviewed.
 
 For example, a duplicate-entry warning with separate edit and confirm actions can benefit from a state view. A small feature with no change to system boundaries may need only the test scenarios.
 

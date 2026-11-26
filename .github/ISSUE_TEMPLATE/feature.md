@@ -17,8 +17,8 @@ about: Propose a feature or track approved implementation work.
 
 ## Dependencies and decisions
 
-<!-- Link the approved spec revision and its approval record. List actual blockers and link the design and test plan or note that approval is pending. -->
+<!-- Link the settled requirements, actual blockers, and the architecture and test specification with their exact approval record. -->
 
 ## Handoff
 
-<!-- Start with design and tests pending. Link the proposal when available, then record readiness or the specific remaining blocker. Include the active branch or PR when work is in progress. -->
+<!-- Record the worktree, branch, Orca session, and shared edit ownership. Link the current progress update and the PR when available. -->
