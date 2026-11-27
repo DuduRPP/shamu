@@ -3,14 +3,14 @@
 Install the complete frontend toolkit from GitHub. Run this from the app root, or from the UI package in a monorepo.
 
 ```powershell
-gh skill install DuduRPP/shamu --all --pin frontend-skills-v0.3.0 --dir ./.optional-skills
+gh skill install DuduRPP/shamu --all --pin frontend-skills-v0.3.0 --dir ./.agents/skills
 ```
 
 Ask the frontend worker to read the installed skill it needs. For example:
 
-> Develop Edit Task. Use `.optional-skills/frontend-design/SKILL.md` for visual direction.
+> Develop Edit Task. Use `frontend-design` for visual direction.
 
-The optional directory keeps the skills out of normal discovery. In Orca, install in the feature worktree or ensure the skill files are available in its base. When using PStack's TypeScript guidance, pass the paths to both PStack skill files. For standing conventions, adapt the [optional frontend AGENTS.md template](templates/AGENTS.frontend.md).
+Start the frontend session from the folder where you installed the pack so the agent discovers its skills. Choose a skill by name or give its path if more than one copy matches. In Orca, install in the feature worktree or ensure the skill files are available in its base. When using PStack's TypeScript guidance, pass the paths to both PStack skill files. For standing conventions, adapt the [optional frontend AGENTS.md template](templates/AGENTS.frontend.md).
 
 ## Included skills
 
