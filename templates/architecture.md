@@ -1,23 +1,25 @@
 # Feature architecture
 
-<!-- Identify the requirements revision, proposal revision, and related issues. -->
+<!-- Link the requirements revision, architecture revision, and matching test specification. -->
 
-## Current behavior and design context
+## Proposed design
 
-<!-- Summarize the relevant modules, interfaces, state and integrations that exist today. -->
+<!-- Start with a Mermaid diagram showing the primary flow or ownership. Label important actions, outcomes, and boundaries. Remove the placeholder and use the diagram type that fits. -->
 
-## Feature design
+```mermaid
+flowchart LR
+    Entry["Entry point"] -->|action| Owner["Module responsible"]
+    Owner -->|outcome| Result["Visible result or state"]
+```
 
-<!-- Specify module responsibilities, interfaces, invariants, state ownership and the main and failure flows. Include a diagram where it answers a review question. -->
+- **Responsibilities** <!-- Name the modules, their public interfaces, and the owner of each important state or rule. -->
+- **Behavior** <!-- Note invariants, errors, and recovery the diagram does not explain. -->
+- **Decisions** <!-- Give short reasons for choices that affect implementation or verification. Link any ADR. -->
 
-## Application-wide changes
+## Application-wide impact
 
-<!-- Identify shared contracts, persisted data, infrastructure, compatibility, or other features affected. Link the shared architecture documents this proposal updates. -->
-
-## Decisions and trade-offs
-
-<!-- Record significant choices, alternatives, effects and open risks. Link architecture decision records when relevant. -->
+- <!-- Note changes to shared contracts, data, infrastructure or compatibility. Link the affected shared architecture. -->
 
 ## Implementation order
 
-<!-- Identify dependencies, shared edits and the order of independently verifiable changes. Link the matching test specification. -->
+1. <!-- List verifiable steps with dependencies and a link to the test sequence. -->

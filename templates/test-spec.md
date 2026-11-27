@@ -4,9 +4,9 @@
 
 ## Scenarios
 
-| Acceptance criterion | Scenario and setup | Action | Expected result | Verification level |
+| Acceptance criterion | Scenario and setup | Action | Expected result | Level and owning test |
 | --- | --- | --- | --- | --- |
-| AC-1 | [Initial state or fixture] | [Public action] | [Outcome and any state change] | [Unit, integration, E2E, or exploratory] |
+| AC-1 | [Initial state or fixture] | [Public action] | [Outcome and any state change] | [Level and component or module test path] |
 
 <!-- Cover the normal path, relevant edge cases, failure and recovery. Identify any state that must be preserved. -->
 

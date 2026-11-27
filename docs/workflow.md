@@ -6,6 +6,21 @@ Inspect the checkout first. Find matching work in the project’s GitHub reposit
 
 Follow [feature progress](progress.md) from issue creation through merge. For local work, keep the artifacts, approvals, and status in the feature worktree and use the same interactive gate for implementation. Draft-only and design-only requests stop at the requested artifact.
 
+## Reuse feature context
+
+- Keep the requirements in the issue or local spec, design in the approved documents, and current status in one [progress record](progress.md#record-milestones). Link to immutable revisions across stages. Include a short excerpt when the next agent cannot read a source.
+- Give each worker its task, pinned artifact links and revisions, base and head as applicable, approval record, allowed paths, and verification commands. Include dependencies or decisions only when they affect the task. Keep the chat transcript and full logs out of the brief.
+- Ask for a compact receipt with commit, criteria covered, failing and passing check results, and remaining blockers. Request only needed fields from CLI calls. Inspect a focused log or diff for diagnosis. Continue on completion events and look up live state when resuming, verifying a receipt, or recovering a missing result.
+- Bundle closely related red/green steps into one independently verifiable slice. Keep one implementation worker per slice and one fresh worker for independent review. Handle routine checks and writing in the responsible session.
+
+When tuning the workflow, compare runs of similar scope. Record the stage, model and effort, input including cached input, output, and dispatch count when the host exposes them. Check whether the change preserves verification and review quality.
+
+## When to ask the user
+
+Use the workflow's interactive checkpoints, including requirements confirmation and approval of the architecture and test specification. Pause for any decision the user explicitly reserved, a material change to settled requirements or approved design, or a blocker only the user can resolve after safe recovery attempts. Otherwise choose a reversible option within scope, record consequential choices in the appropriate progress update, and keep going. A required host permission uses the host's permission mechanism.
+
+Use the [Orca question tool](orca.md#ask-for-human-input) when human input is needed. A worker that cannot open a card sends the decision and options to the user-facing coordinator. Continue independent work while the affected step is paused.
+
 ## 1. Settle requirements and dispatch design
 
 Use [`$grill-requirements`](../.agents/skills/grill-requirements/SKILL.md) and the [feature spec](../templates/feature-spec.md). Inspect existing behavior, then ask every remaining question whose answer affects what must be built or verified. Confirm material decisions and ticket boundaries together. Record the settled revision and actual user decisions.
@@ -16,30 +31,7 @@ Use [`$grill-requirements`](../.agents/skills/grill-requirements/SKILL.md) and t
 2. Check that issues are enabled in the verified repository. Reuse matching issues and publish missing blockers first. Map draft numbers to the resulting URLs. Use native GitHub parent and dependency links when applicable. Verify the content and relationships before dispatch.
 3. On an ambiguous result, check the returned issue URL or look for the same feature and requirements revision before retrying. Resume from verified issues and complete any missing agreed relationships.
 
-For GitHub CLI, set the verified `$issueRepo` and agreed `$issueTitle`. Write the issue body to `$approvedIssueBodyFile`. Set `$blockedByIssueUrls` and `$parentIssueUrl` from the verified dependency URLs, using an empty list and `$null` when absent. Run once for each missing issue in dependency order.
-
-```powershell
-$createIssueArgs = @('issue', 'create', '--repo', $issueRepo, '--title', $issueTitle, '--body-file', $approvedIssueBodyFile)
-if ($blockedByIssueUrls.Count -gt 0) {
-    $createIssueArgs += @('--blocked-by', ($blockedByIssueUrls -join ','))
-}
-if ($parentIssueUrl) {
-    $createIssueArgs += @('--parent', $parentIssueUrl)
-}
-
-$issueUrl = gh @createIssueArgs
-$createExit = $LASTEXITCODE
-if ($issueUrl) {
-    Write-Output $issueUrl
-}
-if ($createExit -ne 0 -or -not $issueUrl) {
-    throw 'Issue creation or linking could not be confirmed. Check GitHub before retrying.'
-}
-gh issue view $issueUrl --repo $issueRepo --json 'number,url,title,body,parent,blockedBy'
-if ($LASTEXITCODE -ne 0) {
-    throw 'Check the returned issue URL before retrying.'
-}
-```
+With GitHub CLI, use `gh issue create --repo OWNER/REPO --title TITLE --body-file PATH`. Add parent and dependency flags when applicable. Read the resulting issue back before dispatch.
 
 [GitHub CLI issue creation](https://cli.github.com/manual/gh_issue_create) · [Issue dependencies](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/creating-issue-dependencies)
 
@@ -47,7 +39,7 @@ if ($LASTEXITCODE -ne 0) {
 
 Use the [Orca launch steps](orca.md#launch-design-in-a-worktree) to give a fresh designer its own worktree, the settled requirements, and relevant domain decisions. Record the worktree, branch, session, and expected areas of change in the issue’s Handoff section. Record the handoff milestone. The feature session owns progress updates after handoff. Report verified delivery and return to the user.
 
-Use one worktree per feature. Independent features can run in parallel. Track true dependencies in the issues. Before dispatch, the main coordinator checks active issues and PRs and records the feature’s write scope in its Handoff. Cover shared files, interfaces, schemas, and architecture docs. Only the main coordinator grants ownership of shared edits. A designer can propose an expanded scope, then keeps it in the feature proposal until ownership is confirmed. Only the assigned owner edits shared files, including domain and architecture documents. Sequence overlapping writes or assign the shared change to a single prerequisite owner. A blocked feature can plan from the agreed interfaces. Refresh its base and recheck the design after the prerequisite lands.
+Use one worktree per feature. Independent features can run in parallel. Track true dependencies in the issues. Before dispatch, the main coordinator checks active issues and PRs and records the feature’s write scope in its Handoff. Cover shared files, interfaces, schemas, architecture docs, and the root README. Only the main coordinator grants ownership of shared edits. A designer can propose an expanded scope, then keeps it in the feature proposal until ownership is confirmed. Only the assigned owner edits shared files, including domain and architecture documents. Sequence overlapping writes or assign the shared change to a single prerequisite owner. A blocked feature can plan from the agreed interfaces. Refresh its base and recheck the design after the prerequisite lands.
 
 ## 2. Approve both design documents
 
@@ -63,21 +55,36 @@ Check readiness for each slice, using the issue and linked records or the local 
 - The architecture and test specification have recorded interactive approval for their current versions.
 - Every dependency needed by the slice is resolved and present in the base. Shared edits have a confirmed owner.
 
+Resolve routine readiness problems before escalating. If Git reports that an untracked file would be overwritten, inspect the file and the verified prerequisite commit. Integrate and verify the prerequisite in a clean, isolated worktree or replaceable checkout while keeping the original working files intact. If the file contains work the feature needs, preserve and account for that work before switching the active checkout. Continue after rechecking the approved documents against the new base. Request input only if safe recovery is unavailable or the choice materially affects the approved scope.
+
 Keep the slice paused while a check is pending. Record the reason and what must happen next. When a decision or changed base affects the approved behavior or design, return the affected documents for review.
 
 ## 3. Delegate test-first implementation
 
 The feature session dispatches each ready slice to the implementation worker as its own task in the feature worktree. Pass the approval record, exact documents, dependencies, assigned paths, and commands to verify. The worker verifies readiness and uses [`$test-first`](../.agents/skills/test-first/SKILL.md). It should implement the smallest behavior at a time, commit its changes, and return failing-before and passing-after evidence. Record each verified milestone with its commit, evidence, and next step. Recheck readiness for the next slice after its prerequisites land. Use the existing approvals when their scope still covers the slice.
 
-Use the [CI guide](ci.md) to reuse or set up relevant checks. For UI work, verify behavior in Orca’s browser or the coding agent’s browser in addition to automated tests. Record the scenarios and observations from the running app.
+Use the [CI guide](ci.md) for project checks. For UI work, record browser verification and capture useful screenshots while verifying the current build.
 
-## 4. Review and merge
+Check the [README maintenance skill](../.agents/skills/readme-maintenance/SKILL.md) when a verified slice changes what users can do or how they run the project. Update affected README content with the slice when it owns the file. If ownership is shared, send the proposed edits to the owner and include the verified README update before final review.
+
+## 4. Review and hand off
 
 In the full GitHub workflow, open or update the draft PR from the implementation commit so CI runs in the verified repository. Link the issues, both approved documents, and verification results in the [PR template](../.github/pull_request_template.md).
 
-The feature session delegates independent review to a fresh [review worker](../.agents/skills/review-feature/SKILL.md) with the exact base and head, approved documents, and evidence. Send blocking findings to the implementation worker. Run the affected checks again and review the new head. Repeat until the current commit has no blocking findings.
+The feature session delegates independent review to a fresh [review worker](../.agents/skills/review-feature/SKILL.md) with the exact base and head, approved documents, and evidence. Send blocking findings to the implementer. Run affected checks again and review the new head. A focused follow-up can reuse exact evidence for unchanged paths and decisions. Expand review when a fix affects shared behavior or the prior evidence no longer applies.
 
-Mark a PR ready and merge only after independent review and required checks pass for the proposed commit. The maintainer decides when to merge. For local work, use the same pinned review and fix loop. Record the reviewed commit and local verification in the worktree. Complete the local feature after its checks and review pass.
+### Hand off for maintainer review
+
+The feature coordinator finishes the GitHub handoff before reporting completion.
+
+1. Re-read the PR and verify that required checks passed and independent review cleared all blocking findings for its current head. If the head changes, verify the new head before continuing.
+2. Update the PR with the delivered behavior, linked issues and approvals, verification, and independent review results. Distinguish verified results from missing evidence. For UI changes, reuse one or two verified screenshots with sample data if the reviewed revision preserves the captured behavior. Recapture affected views if it changed. Pick states that help the maintainer evaluate the change and caption each with what it shows. Attach them to the existing PR with GitHub's attachment support. A recent GitHub CLI supports `gh pr edit --attach`. If attachments are unavailable, link existing repository-scoped evidence when available and report any missing screenshots.
+3. Mark the PR ready for review using the GitHub connector or `gh pr ready` and verify the transition. Update the linked issues and their progress with the PR link, the criteria verified, the tested commit, and the next action for the maintainer. Leave issues open until the merge delivers their scope. Sync the linked Project to its review status when accessible. Record a pending Project sync in issue progress if access is unavailable and proceed with the handoff.
+4. Return the ready PR link and any actual limitations. Leave review and merge to the maintainer. When a merge is later verified, record it in issue progress and sync completed work.
+
+For local work, use the same pinned review and fix loop. Record the reviewed commit and local verification in the worktree. Complete the local feature after its checks and review pass.
+
+[GitHub PR attachments](https://cli.github.com/manual/gh_pr_edit) · [Mark a PR ready](https://cli.github.com/manual/gh_pr_ready)
 
 ## Resume work
 
