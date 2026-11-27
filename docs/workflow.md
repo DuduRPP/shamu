@@ -9,7 +9,7 @@ Follow [feature progress](progress.md) from issue creation through merge. For lo
 ## Reuse feature context
 
 - Keep the requirements in the issue or local spec, design in the approved documents, and current status in one [progress record](progress.md#record-milestones). Link to immutable revisions across stages. Include a short excerpt when the next agent cannot read a source.
-- Give each worker its task, pinned artifact links and revisions, base and head as applicable, approval record, allowed paths, and verification commands. Include dependencies or decisions only when they affect the task. Keep the chat transcript and full logs out of the brief.
+- Give each worker its task, pinned artifact links and revisions, base and head as applicable, approval record, [starting folder](orca.md#choose-the-workers-starting-folder), allowed paths, and verification commands. Include dependencies or decisions only when they affect the task. Keep the chat transcript and full logs out of the brief.
 - Ask for a compact receipt with commit, criteria covered, failing and passing check results, and remaining blockers. Request only needed fields from CLI calls. Inspect a focused log or diff for diagnosis. Continue on completion events and look up live state when resuming, verifying a receipt, or recovering a missing result.
 - Bundle closely related red/green steps into one independently verifiable slice. Keep one implementation worker per slice and one fresh worker for independent review. Handle routine checks and writing in the responsible session.
 
