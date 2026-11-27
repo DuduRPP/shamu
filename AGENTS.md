@@ -9,7 +9,7 @@
 
 ## Frontend skills
 
-When the user asks to install frontend skills, follow the [pack install guide](docs/install-frontend-skills.md) in the requested folder and checkout. Install on request only.
+When the user asks to install frontend skills, follow the [pack install guide](docs/install-frontend-skills.md) for the requested folder and checkout. Install on request and use the frontend pack skills the user selects for the task.
 
 ## Working agreements
 
