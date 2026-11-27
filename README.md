@@ -16,7 +16,7 @@ To adopt Shamu in an existing repository, add the files in a pull request and me
 
 ## Optional frontend skills
 
-Ask your agent “Install frontend skills in `client/`” for a monorepo package or “Install frontend skills in the project root” for a flat app. The pack stays in the selected folder. [Install guide](docs/install-frontend-skills.md)
+Ask your agent “Install frontend skills in `client/`” for a monorepo package or “Install frontend skills in the project root” for a flat app. The pack installs into `.agents/skills/` inside the selected folder so agents can discover it. [Install guide](docs/install-frontend-skills.md)
 
 ## Workflow guides
 
