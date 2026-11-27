@@ -7,6 +7,10 @@
 - A full feature request covers its issues, updates to the linked GitHub Project, feature worktree, worker sessions, and a PR marked ready for maintainer review in the verified project repository. Implementation requires interactive approval of both the architecture and test specification. The human maintainer decides when to merge.
 - Honor narrower requests such as a draft, design only, or local work.
 
+## Frontend skills
+
+When the user asks to install frontend skills, follow the [pack install guide](docs/install-frontend-skills.md) in the requested folder and checkout. Install on request only.
+
 ## Working agreements
 
 - Preserve existing changes. Keep each worktree within its assigned scope and check active work for shared dependencies or conflicting edits before implementation.

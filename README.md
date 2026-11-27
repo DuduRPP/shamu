@@ -14,6 +14,10 @@ Shamu interviews you, opens the issues, and starts a design session in a dedicat
 
 To adopt Shamu in an existing repository, add the files in a pull request and merge the guidance into the project's existing instructions.
 
+## Optional frontend skills
+
+Ask your agent “Install frontend skills in `client/`” for a monorepo package or “Install frontend skills in the project root” for a flat app. The pack stays in the selected folder. [Install guide](docs/install-frontend-skills.md)
+
 ## Workflow guides
 
 - [Feature workflow](docs/workflow.md) for requirements, background worktrees, approvals, and review.
