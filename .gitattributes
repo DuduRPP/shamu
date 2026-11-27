@@ -1,0 +1,2 @@
+# Preserve upstream skill files, including original line endings.
+skills/** -text

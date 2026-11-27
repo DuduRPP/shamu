@@ -1,41 +1,34 @@
 # Shamu frontend skills
 
-Install a pinned set of upstream frontend skills into the folder that owns the UI. The default destination is `.optional-skills/`. From there, use a skill by asking the agent to read its `SKILL.md`. A regular feature prompt does not load the pack.
-
-## Install
-
-From the app root or the frontend package in a monorepo, download the release installer with an authenticated GitHub CLI that has `gh skill` support. The script installs skill folders. Individual skills may require runtimes or tools when used.
+Install the complete frontend toolkit from GitHub. Run this from the app root, or from the UI package in a monorepo.
 
 ```powershell
-$installer = Join-Path ([IO.Path]::GetTempPath()) 'shamu-frontend-skills-v0.2.0.ps1'
-gh api -H 'Accept: application/vnd.github.raw+json' 'repos/DuduRPP/shamu/contents/install-frontend-skills.ps1?ref=frontend-skills-v0.2.0' > $installer
-& $installer -List
-& $installer
+gh skill install DuduRPP/shamu --all --pin frontend-skills-v0.3.0 --dir ./.optional-skills
 ```
 
-Install only the skills you choose by passing their names. Set `-Destination` to install in a different folder.
+Ask the frontend worker to read the installed skill it needs. For example:
 
-```powershell
-& $installer -Skill frontend-design,webapp-testing
-```
+> Develop Edit Task. Use `.optional-skills/frontend-design/SKILL.md` for visual direction.
 
-## Pick a skill
+The optional directory keeps the skills out of normal discovery. In Orca, install in the feature worktree or ensure the skill files are available in its base. When using PStack's TypeScript guidance, pass the paths to both PStack skill files. For standing conventions, adapt the [optional frontend AGENTS.md template](templates/AGENTS.frontend.md).
 
-| Skill | Use it for |
+## Included skills
+
+| Skill | Pinned source |
 | --- | --- |
-| [Anthropic Frontend Design](https://github.com/anthropics/skills/tree/main/skills/frontend-design) | Design direction for a new screen. |
-| [UI/UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) | Searchable design-system recommendations. Its search tool uses Python. |
-| [Impeccable](https://github.com/pbakaus/impeccable) | A scoped critique or polish pass. Use the installed skill folder as its base directory and the project's browser tools as needed. |
-| [Vercel Web Design Guidelines](https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines) | Review source for accessibility, interaction, and responsive-layout issues. |
-| [Anthropic Webapp Testing](https://github.com/anthropics/skills/tree/main/skills/webapp-testing) | Test a running app using Python Playwright. |
-| [Emil Kowalski's skills](https://github.com/emilkowalski/skills) | Pick a UI library, test extreme inputs with `break-ui`, improve mobile interactions with `mobile-native`, or review motion with `review-animations`. |
-| [PStack TypeScript Best Practices](https://github.com/cursor/plugins/tree/main/pstack/skills/typescript-best-practices) | Review TypeScript types and boundaries. The installer includes the companion `principle-type-system-discipline`. |
-| [Vercel React Best Practices](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices) | Review React rendering, data fetching, and performance. |
+| [frontend-design](skills/frontend-design/SKILL.md) | [`e4bb5d9`](https://github.com/anthropics/skills/tree/e4bb5d960d87126ff3b3a8af1a104b7db67560ba/skills/frontend-design) |
+| [webapp-testing](skills/webapp-testing/SKILL.md) | [`e4bb5d9`](https://github.com/anthropics/skills/tree/e4bb5d960d87126ff3b3a8af1a104b7db67560ba/skills/webapp-testing) |
+| [ui-ux-pro-max](skills/ui-ux-pro-max/SKILL.md) | [`11ca2b3`](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/tree/11ca2b3bdd555649f278ee348c32a9302b24dcf1/.claude/skills/ui-ux-pro-max) |
+| [impeccable](skills/impeccable/SKILL.md) | [`2fc5e14`](https://github.com/pbakaus/impeccable/tree/2fc5e1459efbbf06d92c7306517c286bf12490cf/.agents/skills/impeccable) |
+| [pick-ui-library](skills/pick-ui-library/SKILL.md) | [`64eb3de`](https://github.com/emilkowalski/skills/tree/64eb3deb9a5fbfa041faf783e0bc3fd635872e9c/skills/pick-ui-library) |
+| [break-ui](skills/break-ui/SKILL.md) | [`64eb3de`](https://github.com/emilkowalski/skills/tree/64eb3deb9a5fbfa041faf783e0bc3fd635872e9c/skills/break-ui) |
+| [mobile-native](skills/mobile-native/SKILL.md) | [`64eb3de`](https://github.com/emilkowalski/skills/tree/64eb3deb9a5fbfa041faf783e0bc3fd635872e9c/skills/mobile-native) |
+| [review-animations](skills/review-animations/SKILL.md) | [`64eb3de`](https://github.com/emilkowalski/skills/tree/64eb3deb9a5fbfa041faf783e0bc3fd635872e9c/skills/review-animations) |
+| [typescript-best-practices](skills/typescript-best-practices/SKILL.md) | [`b7b93c3`](https://github.com/cursor/plugins/tree/b7b93c36be9bcc36a74db438e0fd385d660bc559/pstack/skills/typescript-best-practices) |
+| [principle-type-system-discipline](skills/principle-type-system-discipline/SKILL.md) | [`b7b93c3`](https://github.com/cursor/plugins/tree/b7b93c36be9bcc36a74db438e0fd385d660bc559/pstack/skills/principle-type-system-discipline) |
+| [vercel-react-best-practices](skills/vercel-react-best-practices/SKILL.md) | [`5a37a63`](https://github.com/vercel-labs/agent-skills/tree/5a37a6329fbad3666c3207392a6a7c0110e92efb/skills/react-best-practices) |
+| [web-design-guidelines](skills/web-design-guidelines/SKILL.md) | [`53b6e3d`](https://github.com/vercel-labs/agent-skills/tree/53b6e3ddf96b3fa83af97b1783ed805b582ad3a7/skills/web-design-guidelines) |
 
-Start with one skill for the phase you are in. For example:
+Each skill folder retains its applicable license and notices. Shamu provides the Web Design Guidelines entrypoint around Vercel's MIT-licensed rules snapshot. Impeccable and UI/UX Pro Max include their upstream resources. Use the skill folder as the base for relative tool paths.
 
-> Develop Edit Task. Use `.optional-skills/frontend-design/SKILL.md` for the visual direction, then use `.optional-skills/webapp-testing/SKILL.md` for browser verification.
-
-For Orca, install in the feature worktree or make the selected skill folders available on its base. When selecting PStack TypeScript guidance, give the worker the paths to both the TypeScript skill and its companion principle. If you want standing frontend instructions, adapt the [optional AGENTS.md template](templates/AGENTS.frontend.md) to the package.
-
-The installer pins each skill to a commit and fetches it directly from its upstream repository. The [Shamu license](LICENSE) covers this branch's original files. Upstream skills are governed by their own terms.
+[License for Shamu files](LICENSE)
