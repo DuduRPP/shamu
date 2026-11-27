@@ -19,7 +19,6 @@ To adopt Shamu in an existing repository, add the files in a pull request and me
 - [Feature workflow](docs/workflow.md) for requirements, background worktrees, approvals, and review.
 - [Architecture template](templates/architecture.md) and [test specification](templates/test-spec.md) for the two documents the maintainer approves.
 - [Orca coordination](docs/orca.md) and [CI setup](docs/ci.md) to run the workflow in a new project.
-- [Optional frontend skills](docs/frontend-skills.md) to choose and install design or UI audit guidance for a feature.
 - [README maintenance skill](.agents/skills/readme-maintenance/SKILL.md) for keeping setup, screenshots, and feature details current.
 
 ## License

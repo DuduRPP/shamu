@@ -63,7 +63,7 @@ Keep the slice paused while a check is pending. Record the reason and what must 
 
 The feature session dispatches each ready slice to the implementation worker as its own task in the feature worktree. Pass the approval record, exact documents, dependencies, assigned paths, and commands to verify. The worker verifies readiness and uses [`$test-first`](../.agents/skills/test-first/SKILL.md). It should implement the smallest behavior at a time, commit its changes, and return failing-before and passing-after evidence. Record each verified milestone with its commit, evidence, and next step. Recheck readiness for the next slice after its prerequisites land. Use the existing approvals when their scope still covers the slice.
 
-Use the [CI guide](ci.md) for project checks. For UI work, record browser verification and capture useful screenshots while verifying the current build. Load an [optional frontend skill](frontend-skills.md) during a relevant UI task only if the user selected it.
+Use the [CI guide](ci.md) for project checks. For UI work, record browser verification and capture useful screenshots while verifying the current build.
 
 Check the [README maintenance skill](../.agents/skills/readme-maintenance/SKILL.md) when a verified slice changes what users can do or how they run the project. Update affected README content with the slice when it owns the file. If ownership is shared, send the proposed edits to the owner and include the verified README update before final review.
 
