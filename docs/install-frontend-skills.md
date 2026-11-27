@@ -6,9 +6,9 @@ A request such as “Install frontend skills in `client/`” installs the full S
 2. Run this from the selected folder with an authenticated GitHub CLI that supports `gh skill`.
 
 ```powershell
-gh skill install DuduRPP/shamu --all --pin frontend-skills-v0.3.0 --dir ./.agents/skills
+gh skill install DuduRPP/shamu --all --pin frontend-skills --dir ./.agents/skills
 ```
 
-3. Verify the 12 skills from the tagged pack with `gh skill list --dir ./.agents/skills` from the same folder. Report the installed version and project-relative location. Keep existing skills and report any name conflicts.
+3. Verify the 12 skills from the pack with `gh skill list --dir ./.agents/skills` from the same folder. Report the installed ref and project-relative location. Keep existing skills and report any name conflicts.
 
-Codex and Antigravity discover skills from the session's working folder and its parents up to the repo root. For a package install, start the frontend session in that package. Ask the agent to use the relevant skill by name, such as `frontend-design`. If more than one copy matches, give the path to the intended `SKILL.md`. [Pack contents and sources](https://github.com/DuduRPP/shamu/tree/frontend-skills)
+Codex and Antigravity discover skills from the session's working folder and its parents up to the repo root. For a package install, start the frontend session in that package. Shamu uses [package-scoped launches](orca.md#choose-the-workers-starting-folder) for delegated work. Ask the agent to use the relevant skill by name, such as `frontend-design`. If more than one copy matches, give the path to the intended `SKILL.md`. [Pack contents and sources](https://github.com/DuduRPP/shamu/tree/frontend-skills)

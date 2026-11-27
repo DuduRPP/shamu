@@ -56,17 +56,54 @@ Only an explicit human approval of the presented pair clears the gate. A display
 
 The feature designer starts supervised workers from its own Orca chat after approval. Orca uses that session’s identity for the coordinator. Load `orca skills get orchestration` once in the coordinating session. Use its coordinator loop reference when needed for multiple tasks. Keep one run for the feature. Use explicit run and worktree identifiers when resuming, with fresh briefs for each role.
 
-1. Dispatch one ready slice at a time in the feature worktree. Pick the implementation profile based on the approved slice and rebuild `$stageArgs`. Keep one writer in a worktree at a time. Use the [brief and receipt fields](workflow.md#reuse-feature-context). Tell the worker to resolve routine decisions within that scope and route any decision requiring human input back to the feature coordinator.
+1. Dispatch one ready slice at a time in the feature worktree. Pick the implementation profile based on the approved slice and rebuild `$stageArgs`. Use the [package-scoped launch steps](#choose-the-workers-starting-folder) for the implementer and reviewer. Keep one writer in a worktree at a time. Use the [brief and receipt fields](workflow.md#reuse-feature-context). Tell the worker to resolve routine decisions within that scope and route any decision requiring human input back to the feature coordinator.
 2. End the turn after dispatch. When Orca delivers `worker_done`, verify the evidence and commit SHA. In the full GitHub workflow, the coordinator pushes the verified commit, opens or updates the draft PR, and updates [feature progress](progress.md#record-milestones). For local work, record evidence in the worktree. Check readiness for the next slice.
 3. Once the proposed scope is ready for review, rebuild `$stageArgs` for the review stage. Start a fresh reviewer with the pinned diff, read-only scope, and links to the requirements and both approved documents.
 4. Return blocking findings through `orchestration send --to dispatch:<dispatch_id>`. Orca continues a settled worker as a follow-up task on supported hosts. Verify and publish each fix using the same receipt process. Run the affected checks. Give a fresh reviewer the new head, the last verified baseline, open findings, the fix diff, and current evidence. Expand the review if scope or behavior changed. Record the findings, fix commits, reviewed head, and verification in the PR and issue progress, or in the local worktree. Follow the CLI’s recovery guidance for unknown starts and incomplete workers. If the shell reports `runtime_access_denied`, use the runner’s permission request for that specific Orca command.
 
 After review clears the current head and required checks pass, the feature coordinator completes the [GitHub handoff](workflow.md#hand-off-for-maintainer-review) before ending the run.
 
-For a new implementation or review task, write the brief to `$workerBriefPath` and set `$taskTitle`. When a task already exists, pass its ID with `--task` in place of `--spec-file` and `--task-title`.
+### Choose the worker’s starting folder
+
+Choose the narrowest existing package or service root that owns the worker’s assigned work and checks. Use the project’s package layout and commands to identify it. Examples include `client/`, `server/`, or `services/scraper/`. Use the feature worktree root for a flat repo, shared changes, or work spanning packages. Keep the user-facing design and coordination session at the worktree root.
+
+Record the repo-relative folder in the brief alongside the allowed edit paths. Resolve it in the feature worktree on the execution host. Check that it exists under that checkout and that `git -C <folder> rev-parse --show-toplevel` resolves to the same feature worktree. Use the package’s own commands and instructions. Have the worker verify its startup directory and Git root before editing. Include the directory in its completion receipt and report a placement mismatch before doing work.
+
+Codex and Antigravity discover `.agents/skills/` and applicable `AGENTS.md` files in the package and its ancestors up to the repo root. A sibling package’s skills stay outside automatic discovery. Ensure any selected package skills are present in this feature checkout before launch. [Codex skill discovery](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills) · [Antigravity discovery](https://antigravity.google/docs/customization-discovery#workspace-folders-and-parent-directories)
+
+### Launch the supervised worker
+
+For a new task, use the brief’s absolute path in `$workerBriefPath` and set `$taskTitle`. For an existing task, use `$taskArgs = @('--task', $taskId)` instead. Use a selector verified against the feature checkout. For a launch at the selected workspace’s root, use the native command.
 
 ```powershell
-orca orchestration worker-start --worktree current @stageArgs --spec-file $workerBriefPath --task-title $taskTitle --json
+$taskArgs = @('--spec-file', $workerBriefPath, '--task-title', $taskTitle)
+orca orchestration worker-start --worktree $worktreeSelector @stageArgs @taskArgs --json
 ```
+
+For a nested folder, use a working-directory option only when the version-matched Orca CLI documents it. On hosts where `worker-start` selects the checkout only, create a dedicated terminal **in that feature worktree**, start the agent CLI from the verified package folder, then attach it to the same run. Load the orchestration guide’s low-level topology reference for this path. The `--terminal` start uses the agent already running, so apply the model and effort at CLI launch.
+
+For a Windows host, use the exact `$worktreeSelector` for the feature worktree and set `$workerPath` to the verified absolute package root, `$agentExe` to the configured executable, and `$agentArgs` to its launch arguments with the selected profile. Codex accepts `--model <id>` and `-c model_reasoning_effort=<level>`. Antigravity’s `agy` accepts `--model <id>` and supports `--effort <level>` on hosts that advertise it. Use the configured agent account, environment, and permissions. If the host cannot reproduce those in a dedicated terminal, report the launch constraint. Use the same `$taskArgs` as above.
+
+```powershell
+$quoteArg = { param($value) "'" + ($value -replace "['\u2018\u2019]", '$0$0') + "'" }
+$invokeAgent = ((@($agentExe) + $agentArgs) | ForEach-Object { & $quoteArg $_ }) -join ' '
+$startup = "& { Set-Location -LiteralPath $(& $quoteArg $workerPath) -ErrorAction Stop; & $invokeAgent }"
+$created = orca terminal create --worktree $worktreeSelector --shell powershell.exe --title $taskTitle --command $startup --json
+if ($LASTEXITCODE -ne 0) { throw ($created -join "`n") }
+$terminalHandle = ($created | ConvertFrom-Json).result.terminal.handle
+if (-not $terminalHandle) { throw 'Inspect the launch receipt before retrying' }
+
+$ready = orca terminal wait --terminal $terminalHandle --for tui-idle --timeout-ms 45000 --json
+if ($LASTEXITCODE -ne 0) { throw ($ready -join "`n") }
+orca terminal read --terminal $terminalHandle --screen --json
+```
+
+Confirm that the dedicated terminal shows the selected agent ready for a prompt. Then attach it using the terminal handle from the launch receipt.
+
+```powershell
+orca orchestration worker-start --terminal $terminalHandle @taskArgs --json
+```
+
+On a POSIX host, use the same terminal and attachment steps with a literal-path-quoted `cd <package> && exec <agent with arguments>` startup command and the host’s shell. If startup or attachment is uncertain, inspect the exact terminal or dispatch and follow Orca’s recovery guidance before retrying. Keep the verified worktree and folder when sending a follow-up or starting its replacement.
 
 [Orca orchestration](https://orca.dev/docs/cli/orchestration)
