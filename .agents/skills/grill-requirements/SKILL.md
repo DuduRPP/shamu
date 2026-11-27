@@ -7,7 +7,7 @@ description: Start a new feature from a plain-language build request or run a re
 
 ## Interview and model the domain
 
-- Apply Matt Pocock's [grilling](references/pocock/grilling.md) and [domain modeling](references/pocock/domain-modeling.md) together. Read the brief, relevant code, glossary, and decision records. Follow existing documentation conventions or the single-context layout in the guide. Check project facts before asking the user.
+- Read the brief, relevant code, glossary, and decision records before asking questions. The workflow below adapts Pocock's [grilling](references/pocock/grilling.md). Read the [domain modeling guide](references/pocock/domain-modeling.md) when terms or decisions need to be reconciled or recorded. Follow the project's documentation conventions.
 ### Plan the interview
 
 - Check [requirements coverage](references/coverage.md) for this feature and its application-wide effects. Ask all remaining questions that can materially change behavior, constraints, or acceptance. Group questions by settled prerequisites and walk concrete success, edge, and failure scenarios. Resolve conflicts with the code and glossary before settling the spec.

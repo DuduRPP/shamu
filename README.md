@@ -14,28 +14,14 @@ Shamu interviews you, opens the issues, and starts a design session in a dedicat
 
 To adopt Shamu in an existing repository, add the files in a pull request and merge the guidance into the project's existing instructions.
 
-## Starter files
+## Workflow guides
 
-| File | Purpose |
-| --- | --- |
-| [Agent instructions](AGENTS.md) | Conventions, approval checkpoints, and project checks |
-| [Feature workflow](docs/workflow.md) | The steps from requirements through merge, including how to resume work |
-| [Design and test skill](.agents/skills/design-and-test/SKILL.md) | Architecture and test proposal generated in the design session |
-| [Test-first skill](.agents/skills/test-first/SKILL.md) | Implementation and verification after plan approval |
-| [Feature spec](templates/feature-spec.md) | Scope and observable acceptance criteria |
-| [Architecture template](templates/architecture.md) and [test specification](templates/test-spec.md) | The pair of documents reviewed before implementation |
-| [Orca coordination](docs/orca.md) | Background worktree launch, interactive approval, and independent review |
-| [CI setup](docs/ci.md) | Starter check, project checks, and required GitHub status |
-| [Review skill](.agents/skills/review-feature/SKILL.md) | Independent review of a specific diff |
-| [GitHub issue template](.github/ISSUE_TEMPLATE/feature.md) | The task, dependencies, and links to decisions |
-| [GitHub pull request template](.github/pull_request_template.md) | The change, verification results, and review notes |
+- [Feature workflow](docs/workflow.md) for requirements, background worktrees, approvals, and review.
+- [Architecture template](templates/architecture.md) and [test specification](templates/test-spec.md) for the two documents the maintainer approves.
+- [Orca coordination](docs/orca.md) and [CI setup](docs/ci.md) to run the workflow in a new project.
+- [Optional frontend skills](docs/frontend-skills.md) to choose and install design or UI audit guidance for a feature.
+- [README maintenance skill](.agents/skills/readme-maintenance/SKILL.md) for keeping setup, screenshots, and feature details current.
 
-## Install a skill
+## License
 
-Run this from the folder that should own the skill, substituting the source repository and skill name.
-
-```powershell
-gh skill install OWNER/REPO SKILL-NAME --dir .\.agents\skills
-```
-
-Start Codex from that folder to use the skill. [GitHub CLI skill install](https://cli.github.com/manual/gh_skill_install) · [Codex skill discovery](https://learn.chatgpt.com/docs/build-skills)
+[MIT](LICENSE)

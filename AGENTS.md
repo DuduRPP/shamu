@@ -13,7 +13,8 @@
 - Make routine, reversible decisions within the settled scope and continue to the next workflow checkpoint. Use the [human input rules](docs/workflow.md#when-to-ask-the-user) for decisions reserved for the user and blockers that require their action.
 - Commit verified slices as work progresses. Use [Conventional Commits and feature progress](docs/progress.md) to keep the branch, issues, and linked Project current.
 - Prefer small interfaces, clear ownership, and existing patterns. Add abstractions for a concrete need. Use comments for non-obvious reasoning or constraints.
-- Apply the [writing skill](.agents/skills/unslop/SKILL.md) before sharing specs, architecture, tests, issues, PRs, or other documentation. Preserve confirmed decisions, exact requirements, and reviewer evidence.
+- Read the instructions for your stage and follow links as needed. Reuse [recorded decisions and verification](docs/workflow.md#reuse-feature-context).
+- Use the [writing skill](.agents/skills/unslop/SKILL.md) when editing project artifacts. Reuse it during the session.
 
 ## Model routing
 
@@ -22,14 +23,12 @@ Use these defaults for feature work. Apply any model choices the project or user
 | Stage | Orca agent | Model ID | Effort |
 | --- | --- | --- | --- |
 | Requirements and coordination | codex | `gpt-6.2-sol` | low |
-| Architecture, tests, and approval | codex | `gpt-6.2-sol` | medium |
+| Architecture, tests, and approval | codex | `gpt-6.2-sol` | low for contained features, medium otherwise |
 | Frontend-only implementation | antigravity | `gemini-4-hydrogen-low` | Set by model ID |
-| Other implementation | codex | `gpt-6.2-sol` | medium |
-| Independent review | codex | `gpt-6.2-sol` | medium |
+| Other implementation | codex | `gpt-6.2-sol` | low for contained slices, medium otherwise |
+| Independent review | codex | `gpt-6.2-sol` | low for contained diffs, medium otherwise |
 
-Use the frontend profile for slices confined to UI behavior, styling, and their tests. Use the other implementation profile when a slice changes an API contract, shared domain behavior, storage, or backend code. For a frontend slice with complex interaction or async state, use `gemini-4-hydrogen-medium`. For design involving consequential shared contracts, a migration, or concurrency, raise Codex `gpt-6.2-sol` to `max` effort when supported. A project can choose Antigravity `gemini-4-neon-high` for this escalation when its Orca chat supports the [interactive approval](docs/orca.md#request-interactive-approval).
-
-Start the main session with the requirements profile. Use the [Orca launch arguments](docs/orca.md#select-an-agent-for-the-stage) for each handoff. Pass the worker the approved revisions, relevant paths, and verification commands. Give reviewers the exact diff and check results. Run routine checks directly.
+Use [Orca launch arguments](docs/orca.md#select-an-agent-for-the-stage) for workers. Choose effort by scope, then raise it for a concrete difficulty. Use the requirements profile for the main session.
 
 ## Verification
 
