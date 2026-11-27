@@ -3,7 +3,7 @@
 Install the complete frontend toolkit from GitHub. Run this from the app root, or from the UI package in a monorepo.
 
 ```powershell
-gh skill install DuduRPP/shamu --all --pin frontend-skills-v0.3.0 --dir ./.agents/skills
+gh skill install DuduRPP/shamu --all --pin frontend-skills --dir ./.agents/skills
 ```
 
 Ask the frontend worker to read the installed skill it needs. For example:
